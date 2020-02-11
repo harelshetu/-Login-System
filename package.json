@@ -1,0 +1,30 @@
+{
+  "name": "-Login-System",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harelshetu/-Login-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harelshetu/-Login-System/issues"
+  },
+  "homepage": "https://github.com/harelshetu/-Login-System#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.8",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2"
+  }
+}
