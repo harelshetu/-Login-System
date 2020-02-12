@@ -19,7 +19,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size: 1.3em;">
-        <span class="navbar-brand"><img src="/chef.png" alt="chef pic" height="42" width="42" /></span>
+        <span class="navbar-brand"><!--<img src="/chef.png" alt="chef pic" height="42" width="42" />--></span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -43,32 +43,32 @@
         <div class="row">
             <div class="card mx-auto" style="width: 25rem; border: 2px solid #ccc;">
                 <div class="card-body">
-                    <form action="/register" method="POST">
+                    <form action="/users/register" method="POST">
                         <label for="formGroupExampleInput">Name</label>
                         <input type="text" class="form-control" id="formGroupExampleInput" name="name" 
                         placeholder="Enter name" value="<%= typeof name != 'undefined' ? name : '' %>"  required>
-                        <small id="nameError" class="form-text text-muted"><%= errorName %> </small>
+                        <small id="nameError" class="form-text text-danger"><%= typeof errorName != 'undefined' ? errorName : '' %> </small>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" name="email"
                                 aria-describedby="emailHelp" placeholder="Enter email" 
                                 value="<%= typeof email != 'undefined' ?email : '' %>"  required>
-                            <small id="emailError" class="form-text text-muted "><%= errorEmail %> </small>
+                            <small id="emailError" class="form-text text-danger "><%= typeof errorEmail != 'undefined' ? errorEmail : '' %> </small>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Enter password"
                             value="<%= typeof password != 'undefined' ? password : '' %>"  required>
-                            <small id="passwordError" class="form-text  text-danger"><%= errorPassword %> </small>
+                            <small id="passwordError" class="form-text  text-danger"><%= typeof errorPassword != 'undefined' ? errorPassword : '' %> </small>
                             <label for="exampleInputPassword1">Confirm Password</label>
                             <input type="password" class="form-control" id="exampleInputPassword2" name="password2"
                              placeholder="Confirm password" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" required>
-                            <small id="password2Error" class="form-text text-muted"><%= errorPassword2 %> </small>
+                            <small id="password2Error" class="form-text text-danger"><%= typeof errorPassword2 != 'undefined' ? errorPassword2 : '' %> </small>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
                     <br>
-                    <p> You have an account? <a href="/login">Login</a></p>
+                    <p> You have an account? <a href="/users/login">Login</a></p>
                 </div>
 
 

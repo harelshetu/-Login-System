@@ -1,0 +1,11 @@
+<div id="messages">
+    <% Object.keys(messages).forEach(function (type) { %>
+      <% messages[type].forEach(function (message) { %>
+        <% if(type == 'danger' || type == 'success') {%>
+          <div class="alert alert-<%= type %>"><%= message %></div>
+        <%} else {%>
+          <div class="alert alert-warning"><%= message %></div>
+        <% } %> 
+      <% }) %>
+    <% }) %>
+    </div>
