@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const path = require('path');
-//const flash = require('connect-flash');
+const methodOverride = require('method-override');
 const session = require('express-session');
 const passport = require('passport');
 const PORT = 5000;
@@ -15,10 +15,10 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error('Failed to connect the Database',error));
 db.once('open', () => console.log('Connected to Database'));
 
+app.use(methodOverride('_method'));
 require('./config/passport')(passport);
-
 app.use(session({
-    secret:'my secret',
+    secret:process.env.SECRET,
     resave:true,
     saveUninitialized:true
   }));

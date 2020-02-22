@@ -5,9 +5,22 @@ const passport = require("passport");
 const { checkAuthenticated,checkNotAuthenticated} = require('../config/authentication');
 const router = express.Router();
 
+/**
+ * this middleware will check if there is method overide 
+ * for DELETE request
+ */
+router.use( function( req, res, next ) {
+  if ( req.query._method == 'DELETE' ) {
+      // change the original METHOD to DELETE
+      req.method = 'DELETE';
+      //set the match url 
+      req.url = req.path;
+  }       
+  next(); 
+});
+
 router.get("/login", checkNotAuthenticated ,(req, res, next) => {
   res.render("login");
-  //next();
 });
 
 router.post('/login', passport.authenticate('local', {
@@ -16,35 +29,23 @@ router.post('/login', passport.authenticate('local', {
     failureFlash: true
   }),(req, res, next) => {});
 
-router.post("/login",(req, res) => {
-
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/users/login',
-        failureFlash: true
-      })(req, res);
-  });
-
 router.get("/register", checkNotAuthenticated,(req, res, next) => {
   res.render("register");
-  //next();
+  
 });
 router.post("/register", (req, res) => {
   const { name, email, password, password2 } = req.body;
-  console.log("hereeeeeeeeeeeeeeeeee");
-  //server validation
+  //server validation errors
   let errors = {};
-
-  // check if name or email in database
 
   if (password.length < 5) {
     errors.password = "* password should be at least 5 charecters";
   }
-  console.log(errors.password);
+  //console.log(errors.password);
 
   if (password != password2 && errors.password == undefined) {
     errors.password2 = "* password don't match";
-    console.log("------------", errors);
+   // console.log(errors);
   }
   if (Object.keys(errors).length > 0) {
     res.render("register", {
@@ -76,7 +77,7 @@ router.post("/register", (req, res) => {
             email,
             password
           });
-          console.log("before-----------------", user);
+          //console.log("before-----------------", user);
 
           bcrypt.genSalt(10, function(err, salt) {
             bcrypt.hash(user.password, salt, function(err, hash) {
@@ -84,7 +85,7 @@ router.post("/register", (req, res) => {
                 throw err;
               }
               user.password = hash;
-              console.log("after-----------------", user);
+              //console.log("after-----------------", user);
               user
                 .save()
                 .then(() => {
@@ -92,7 +93,7 @@ router.post("/register", (req, res) => {
                   res.redirect("/users/login");
                 })
                 .catch(err => {
-                  console.log("failed to save in db ", err);
+                  //console.log("failed to save in db ", err);
                   req.flash("danger", "Registration failed");
                 });
             });
@@ -101,6 +102,12 @@ router.post("/register", (req, res) => {
       })
       .catch(err => console.log("failed to find in db ", err));
   }
+});
+
+router.delete("/logout", (req, res) => {
+  req.logOut();
+  req.flash('success','You logged out');
+  res.redirect('/');
 });
 
 module.exports = router;

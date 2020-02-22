@@ -3,7 +3,11 @@ const router = express.Router();
 
 router.get('/',(req,res)=>{
 
-    res.render('home.ejs');
+    if(typeof req.user !== 'undefined' ){
+        console.log(req.user.name);
+    }
+
+    res.render('home.ejs',{user:req.user});
 });
 
 module.exports = router;

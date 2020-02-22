@@ -36,7 +36,4 @@ module.exports = (passport)=>{
           done(err, user);
         });
       });
-
-
-
 };

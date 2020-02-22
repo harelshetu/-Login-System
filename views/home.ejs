@@ -19,7 +19,7 @@
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size: 1.3em;">
-    <span class="navbar-brand" ><img src="/chef.png" alt="chef pic" height="42" width="42"/></span>
+    
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -29,14 +29,23 @@
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
+          <%if (typeof user != 'undefined') {%>
+            <!---<form class="nav-link" action="/users/logout?_method=DELETE" method="POST">
+              <button type="submit">Logout</button>
+            </form>--->
+            <a class="nav-link" href="/users/logout?_method=DELETE">Logout</a>
+         <% } else {%>
           <a class="nav-link" href="/users/login">Login</a>
+         <% }%>
+          
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/search">----</a>
-          </li>
       </ul>
     </div>
   </nav>
   <br>
+  <%- messages('flash_message', locals) %> 
+  <%if (typeof user != 'undefined') {%>
+    <h2> Welcome <%=user.name %> </h2>
+ <% }%>
   </body>
   </html>
